@@ -1,0 +1,8 @@
+# Created by venv; see https://docs.python.org/3/library/venv.html
+token-gh
+/bin/*
+*.pyc
+__pycache__/
+/lib/*
+/include/*
+pyvenv.cfg
