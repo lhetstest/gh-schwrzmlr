@@ -237,7 +237,8 @@ for x in range(100) :
     step = random_walk[-1]
     dice = np.random.randint(1, 7)
     if dice <= 2 :
-        step = step - 1
+        #Make sure to decrement step with max(0, step -1) when the if condition is true. This is to ensure that step never becomes negative, which would not make sense in the context of a random walk where you can't go below the starting point.
+        step = max(0, step - 1)
     elif dice <= 5 :
         step = step + 1
     else :
@@ -246,3 +247,12 @@ for x in range(100) :
 
 # Print random_walk
 print(random_walk)
+
+import matplotlib.pyplot as plt
+
+# Plot random_walk
+
+plt.plot(random_walk)
+
+# Show the plot
+plt.show()
