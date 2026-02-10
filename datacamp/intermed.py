@@ -256,3 +256,119 @@ plt.plot(random_walk)
 
 # Show the plot
 plt.show()
+
+
+'''
+Fill in the specification of the for loop so that the random walk is simulated five times.
+After the random_walk array is entirely populated, append the array to the all_walks list.
+Finally, after the top-level for loop, print out all_walks.
+'''
+# NumPy is imported; seed is set
+# Initialize all_walks (don't change this line)
+all_walks = []
+
+# Simulate random walk five times
+for i in range(5) :
+
+    # Code from before
+    random_walk = [0]
+    for x in range(100) :
+        step = random_walk[-1]
+        dice = np.random.randint(1,7)
+
+        if dice <= 2:
+            step = max(0, step - 1)
+        elif dice <= 5:
+            step = step + 1
+        else:
+            step = step + np.random.randint(1,7)
+        random_walk.append(step)
+
+    # Append random_walk to all_walks
+    all_walks.append(random_walk)
+
+# Convert all_walks to NumPy array: np_aw
+
+np_aw = np.array(all_walks)
+# Plot np_aw and show
+plt.plot(np_aw)
+plt.show()
+# Clear the figure
+plt.clf()
+
+# Transpose np_aw: np_aw_t
+np_aw_t = np_aw.transpose()
+
+# Plot np_aw_t and show
+plt.plot(np_aw_t)
+plt.show()
+
+# clear the plot so it doesn't get cluttered if you run this many times
+plt.clf()
+
+# Simulate random walk 20 times
+all_walks = []
+for i in range(20) :
+    random_walk = [0]
+    for x in range(100) :
+        step = random_walk[-1]
+        dice = np.random.randint(1,7)
+        if dice <= 2:
+            step = max(0, step - 1)
+        elif dice <= 5:
+            step = step + 1
+        else:
+            step = step + np.random.randint(1,7)
+
+        # Implement clumsiness
+        if np.random.rand() <= 0.005 :
+            step = 0
+
+        random_walk.append(step)
+    all_walks.append(random_walk)
+
+# Create and plot np_aw_t
+np_aw_t = np.transpose(np.array(all_walks))
+plt.plot(np_aw_t)
+plt.show()
+
+
+'''
+To make sure we've got enough simulations, go crazy. Simulate the random walk 500 times.
+From np_aw_t, select the last row. This contains the endpoint of all 500 random walks you've simulated. Store this NumPy array as ends.
+Use plt.hist() to build a histogram of ends. Don't forget plt.show() to display the plot.
+'''
+# Simulate random walk 500 times
+all_walks = []
+for i in range(500) :
+    random_walk = [0]
+    for x in range(100) :
+        step = random_walk[-1]
+        dice = np.random.randint(1,7)
+        if dice <= 2:
+            step = max(0, step - 1)
+        elif dice <= 5:
+            step = step + 1
+        else:
+            step = step + np.random.randint(1,7)
+        if np.random.rand() <= 0.001 :
+            step = 0
+        random_walk.append(step)
+    all_walks.append(random_walk)
+
+# Create and plot np_aw_t
+np_aw_t = np.transpose(np.array(all_walks))
+
+# Select last row from np_aw_t: ends
+np_aw_t = np.transpose(np.array(all_walks))
+ends = np_aw_t[-1]
+
+# Plot histogram of ends, display plot
+plt.hist(ends)
+plt.show()
+
+#The histogram of the previous exercise was created from a NumPy array ends, that contains 500 integers. Each integer represents the end point of a random walk. To calculate the chance that this end point is greater than or equal to 60, you can count the number of integers in ends that are greater than or equal to 60 and divide that number by 500, the total number of simulations.
+
+#Well then, what's the estimated chance that you'll reach at least 60 steps high if you play this Empire State Building game? The ends array is everything you need; it's available in your Python session so you can calculate it.
+chance_of_reaching_60 = np.sum(ends >= 60) / len(ends)
+print(f"Estimated chance of reaching at least 60 steps: {chance_of_reaching_60 * 100:.2f}%")
